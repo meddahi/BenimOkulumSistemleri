@@ -1,0 +1,151 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="MasterPage.master.cs" Inherits="BenimOkulumSistemleri.MasterPage" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+
+    <form id="form1" runat="server">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-danger">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">Benim Okulum</a>
+                
+                <div id="navbar" class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav navbar-right">
+
+                        <% try
+                        {  %>
+                        <li><a href="Home.aspx">Anasayfa</a></li>
+
+                        <% if (Session["username"] != null)
+                            {
+                                String role = Session["role"].ToString();
+                        %>
+                        <% if (role.Equals("admin"))
+                        { %>
+                        <!-- Branch -->
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Alan <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="Branch.aspx">Listele </a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="AddBranch.aspx">Ekle </a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="DeleteBranch.aspx">Sil</a></li>
+                                <li role="separator" class="divider"></li>
+                            </ul>
+                        </li>
+
+
+                        <!-- Courses -->
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Ders <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="Course.aspx">Listele </a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="AddCourse.aspx">Ekle </a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="#">Güncelle </a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="#">Sil</a></li>
+                            </ul>
+                        </li>
+
+                        <!-- Student -->
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Öğrenci <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="Student.aspx">Listele </a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="AddStudent.aspx">Ekle </a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="UpdateStudent.aspx">Güncelle </a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="DeleteStudent.aspx">Sil</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="AddStudentCourse.aspx">Ders Atama</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="StudentCourses.aspx">Öğrenci Dersleri</a></li>
+                            </ul>
+                        </li>
+
+                        <!-- Teacher -->
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Öğretmen <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="Teacher.aspx">Listele </a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="AddTeacher.aspx">Ekle </a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="#">Güncelle </a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="#">Sil</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="AddTeacherCourse.aspx">Ders Atama</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="TeacherCourses.aspx">Öğretmen Dersleri</a></li>
+                            </ul>
+                        </li>
+
+
+                        <%}
+                        else if (role.Equals("teacher"))
+                        {%>
+                        <li><a href="Student.aspx">View Students</a></li>
+                        <li><a href="Teacher.aspx">View Teachers</a></li>
+                        <li><a href="Message.aspx">Send Message</a></li>
+
+                        <li><a href="SentMessages.aspx">Mesaj Gösterme</a></li>
+                        <% }
+                        else
+                        { %>
+                        <li><a href="#">Profile</a></li>
+                        <li><a href="Notifications.aspx">Notifications</a></li>
+
+                        <% } %>
+                        <li>
+                            <div class="text-center">
+                                <asp:Button ID="SubmitBtn" Style="margin-top: 10px" type="submit" runat="server" OnClick="Button1_Click" Text="Çıkış" class="btn btn-success" />
+                            </div>
+                        </li>
+                        <%}
+                        else
+                        { %>
+                        <li><a href="Login.aspx">Giriş</a></li>
+                        <%  }
+                            }
+                            catch (Exception e)
+                            {
+
+                            }
+                        %>
+                    </ul>
+                </div>
+                <!--/.nav-collapse -->
+            </div>
+        </nav>
+
+        <div class="container-fluid">
+
+            <div>
+                <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                </asp:ContentPlaceHolder>
+            </div>
+
+        </div>
+    </form>
+
+
+    <script src="Scripts/jquery-3.0.0.js"></script>
+    <script src="Scripts/bootstrap.min.js"></script>
+    <script src="Scripts/popper.min.js"></script>
+    <script src="Scripts/popper.js"></script>
+</body>
+</html>
